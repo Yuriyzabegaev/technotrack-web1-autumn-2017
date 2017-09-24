@@ -56,7 +56,8 @@ def html_page_maker (data):
     answer += """</html>\r\n"""
     return answer
 
-def close (client_socket, server_socket)
+def close (client_socket, server_socket):
+    pass
 
 def parse (client_socket, addr):
     data = b""
