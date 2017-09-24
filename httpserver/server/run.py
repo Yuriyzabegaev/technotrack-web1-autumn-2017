@@ -23,7 +23,7 @@ def request_manager (client_socket, method, adress, protocol):
         #answer += "You are: " + "NAME?" + "\r\n" #косяк
         return answer
     request = adress.split('/')
-    names = os.listdir("..//files")
+    names = os.listdir("../files")
     str_names = ' '.join(names)
     if request[1] == "media":
         if request[2] == '':
