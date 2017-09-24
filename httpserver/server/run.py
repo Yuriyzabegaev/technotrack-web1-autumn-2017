@@ -20,13 +20,13 @@ def html_page_maker (data):
 def request_manager (client_socket, method, adress, protocol):
     if adress == '/':
         answer = "Hello mister!\r\n"
-        answer += "You are: " + "NAME?" + "\r\n" #косяк
+        #answer += "You are: " + "NAME?" + "\r\n" #косяк
         return answer
     request = adress.split('/')
     names = os.listdir("..//files")
     str_names = ' '.join(names)
     if request[1] == "media":
-        if len(request) == 2:
+        if request[2] == '':
             return str_names
         try:
             if len(request) == 3 and names.index(request[2]) != -1:
@@ -78,19 +78,19 @@ def get_response(request):
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-server_socket.bind(('localhost', 8000))  #
-server_socket.listen(1)  #
+server_socket.bind(('localhost', 8000))  #связывает наш сокет с хостом, первый элемент - хост, второй - порт
+server_socket.listen(1)  #слушает соединения с сокетом, аргумент - максимальное кол-во подключений в очереди, изменил с 0 на 1
 
 print 'Started'
 
 while 1:
     try:
         (client_socket, address) = server_socket.accept()
-        print 'Got new client', client_socket.getsockname()  #
-        request_string = client_socket.recv(2048)  #
-        client_socket.send(get_response(request_string))  #
+        print 'Got new client', client_socket.getsockname()  # возвращает имя полученного сокета клиента
+        request_string = client_socket.recv(2048)  #читаем порциями по 2кб
+        client_socket.send(get_response(request_string)) #отправляем результат get_respose
         client_socket.close()
-    except KeyboardInterrupt:  #
+    except KeyboardInterrupt:  #обработка ошибок
         print 'Stopped'
-        server_socket.close()  #
+        server_socket.close()  #закрываем сокет
         exit()
