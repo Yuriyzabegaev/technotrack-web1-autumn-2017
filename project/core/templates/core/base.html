@@ -1,0 +1,22 @@
+{% block up %}
+<h1>
+    <a href="{% url "home" %}"> Main page</a><br />
+    <a href="{% url "blog_app:blog_list" %}"> Blogs</a><br />
+    <a href="{% url "core:profile_list" %}"> Users</a><br />
+    <br />
+</h1>
+{% endblock %}
+{% block header %}
+<h2> This is main menu<br /></h2>
+{% endblock %}
+
+{% block content %}
+    number of blogs: {{blog_count|default:"ERROR"}}
+    <br />number of posts: {{post_count}}
+    <br />number of comments: {{comment_count}}
+    <br /><br />
+
+</h1>
+{% endblock %}
+
+{% include "core/footer.html" %}

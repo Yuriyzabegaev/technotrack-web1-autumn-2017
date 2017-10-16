@@ -1,0 +1,22 @@
+{% extends "core/base.html" %}
+
+{% block header %}
+<h1> {{ post.title }} from blog {{ post.blog.title }}</h1>
+{% endblock %}
+
+{% block content %}
+
+<h2>
+    {{ post.title }}
+    <br \><br \>
+    Comments number: {{ comment_count }} <br \><br \>
+    Comments:
+
+</h2>
+    {% for comment in post.comments.all %}
+    <b>{{ comment.title }}</b><br \>
+        {{ comment.data }}<br \> <i> by author {{ comment.author }}</i>
+        <br \><br \>
+    {% endfor %}
+
+{% endblock %}

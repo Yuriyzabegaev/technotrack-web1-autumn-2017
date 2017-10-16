@@ -1,0 +1,14 @@
+{% extends "core/base.html" %}
+
+{% block header %}
+<h1> This is the blog {{ blog.title }} </h1>
+{% endblock %}
+
+{% block content %}
+{% for post in blog.posts.all %}
+    <div>
+        <a href="{% url 'blog_app:post_app:post_detail' post.blog.pk post.pk %}"> {{ post.title }}</a>
+    </div>
+{% endfor %}
+{% endblock %}
+

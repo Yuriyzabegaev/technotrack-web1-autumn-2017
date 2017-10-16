@@ -1,0 +1,14 @@
+{% extends "core/base.html" %}
+
+{% block header %}
+<h1> This is profile of user {{ user.username }}. </h1>
+
+pk of {{ user.username }} is: {{ user.pk }} <br /><br />
+{% endblock %}
+
+{% block content %}
+{% for blog in user.blogs.all %}
+         <a href="{% url "blog_app:blog_detail" pk=blog.pk %}"> {{ blog.title }}</a>
+        </div>
+    {% endfor %}
+{% endblock %}

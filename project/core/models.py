@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
 
-class Post(models.Model):
+class User(AbstractUser):
 
-    title = models.CharField(max_length=256)
+    avatar = models.ImageField(upload_to='avatars', blank=True, null=True)
+    class Meta:
+        ordering = 'username',
+        verbose_name = u'Пользователь'
+        verbose_name_plural = u'Пользователи'

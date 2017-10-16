@@ -37,8 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',
+    'core.apps.CoreConfig',
+    'blog_app.apps.BlogAppConfig',
+    'post_app.apps.PostAppConfig',
+    'comment_app.apps.CommentAppConfig',
 ]
+
+AUTH_USER_MODEL = 'core.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -78,9 +83,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'BASE1',
-        'USER': 'yuriy',
+        'USER': 'zabegaev99',
         'PASSWORD': 'sixsixsix',
         'HOST': 'localhost',
+        'OPTIONS': {
+         "init_command": "SET foreign_key_checks = 0;",
+    },
     }
 }
 

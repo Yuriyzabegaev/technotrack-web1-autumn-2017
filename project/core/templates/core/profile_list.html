@@ -1,0 +1,18 @@
+{% extends "core/base.html" %}
+
+{% block header %}
+<h2> This is list of profiles<br /></h2>
+{% endblock %}
+
+{% block content %}
+<h2>
+    {% for user in object_list %}
+        <div>
+            <a href="{% url "core:profile" user_pk=user.pk %}"> {{ user.username }}</a>
+
+
+            </div>
+    <br />
+    {% endfor %}
+</h2>
+{% endblock %}
