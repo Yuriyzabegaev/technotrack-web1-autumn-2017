@@ -9,7 +9,6 @@ from blog_app.models import Blog
 
 class Post(models.Model):
 
-    postId = models.IntegerField(default=0, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='posts')

@@ -1,15 +1,26 @@
 {% extends "core/base.html" %}
 
 {% block header %}<h2>
-    Here you can see the list of Blogs
+    List of Blogs<br>
+    <a href="{% url "blog_app:blog_new" %}">  Start new </a>
+
 </h2>{% endblock %}
 
 {% block content %}
 
+
+
+    <form action="" method="get">
+        {{ searchform }}
+
+        <input type="submit" value="Search">
+
+    </form>
+
     <br \>
     {% for blog in object_list %}
         <div>
-                <a href="{% url "blog_app:blog_detail" pk=blog.pk %}"> {{ blog.title }}</a>
+                <a href="{% url "blog_app:blog_detail" pk=blog.pk %}"> {{ blog.title }}</a> (by {{ blog.author }})
             </div>
             <div>
                 <i>{{ blog.description }}</i>
@@ -17,6 +28,8 @@
         </div>
     <br />
     {% endfor %}
+
+{% include 'core/pagination.html' %}
 
 
 {% endblock %}

@@ -5,10 +5,14 @@ from django.contrib import admin
 from core.views import *
 from blog_app.views import *
 from .views import *
+from django.contrib.auth.decorators import login_required
+
 
 
 urlpatterns = [
     url(r'^$', BlogList.as_view(), name="blog_list"),
-    url(r'^blog_(?P<pk>\d+)/$', BlogDetail.as_view(), name="blog_detail"),
-    url(r'^blog_(?P<blog_pk>\d+)/', include('post_app.urls', namespace="post_app")),
+    url(r'^(?P<pk>\d+)/$', BlogDetail.as_view(), name="blog_detail"),
+    url(r'^(?P<pk>\d+)/edit/$', login_required(BlogUpadte.as_view()), name="blog_edit"),
+    url(r'^new/$', login_required(BlogNew.as_view()), name='blog_new'),
+
 ]

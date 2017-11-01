@@ -21,6 +21,7 @@ from core.views import *
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^blogs/', include('blog_app.urls', namespace="blog_app")),
+    url(r'^posts/', include('post_app.urls', namespace="post_app")),
     url(r'^$', HomePageView.as_view(), name='home'),
     url(r'^', include('core.urls', namespace="core")),
 ]

@@ -1,0 +1,14 @@
+{% extends "core/base.html" %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+
+    <form action="" method="post">
+        {{ form }}
+        {% csrf_token %}
+        <input type="submit", value="Create">
+    </form>
+
+{% endblock %}

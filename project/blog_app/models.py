@@ -5,7 +5,6 @@ from django.conf import settings
 
 class Blog(models.Model):
 
-    blog_id = models.IntegerField(default=0, unique=True)
     title = models.CharField(max_length=255, default='')
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='blogs')
     description = models.TextField(default='', null=True)
@@ -17,6 +16,6 @@ class Blog(models.Model):
         return u'{}'.format(self.title)
 
     class Meta:
-        ordering = '-blog_id',
+        ordering = ('-updated_at', )
         verbose_name = u'Блог'
         verbose_name_plural = u'Блоги'

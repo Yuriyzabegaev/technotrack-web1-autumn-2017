@@ -12,6 +12,6 @@ class PostInline(admin.TabularInline):
 @admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
 
-    list_display = 'blog_id', 'title', 'author',
-    list_editable = 'title', 'author',
+    list_display = ('pk', 'title', 'author', )
+    list_editable = ('title', 'author', )
     inlines = PostInline,

@@ -1,16 +1,36 @@
-{% block up %}
-<h1>
-    <a href="{% url "home" %}"> Main page</a><br />
-    <a href="{% url "blog_app:blog_list" %}"> Blogs</a><br />
-    <a href="{% url "core:profile_list" %}"> Users</a><br />
+{% block menu %}
+
+    <a href="{% url "home" %}"> Main page</a>
+    <a href="{% url "blog_app:blog_list" %}"> Blogs</a>
+    <a href="{% url "core:profile_list" %}"> Users</a>
+    {% if user.is_authenticated %}
+    {{ request.user }}
+    <br>
+    <a href="{% url "core:logout" %}"> (Log out)</a>
+    {% else %}
+    <a href="{% url "core:login" %}"> Log in</a>
+    <a href="{% url "core:registration" %}"> Register</a>
+    {% endif %}
+
     <br />
-</h1>
+    -----------------------------------------------------------------------------------
+    <br />
 {% endblock %}
 {% block header %}
-<h2> This is main menu<br /></h2>
-{% endblock %}
+ <br>Main page<br>
+    {% endblock %}
 
 {% block content %}
+    {% if user_check %}
+     <br>Welcome back, {{ request.user }}
+        <br><br>
+{% endif %}
+    <b>Five latest posts:</b><br \><br \>
+        {% for post in latest_articles.all %}
+    <a href="{% url 'post_app:post_detail' post.pk %}">{{ post }} </a>
+     <br \>
+{% endfor %}
+<br \>
     number of blogs: {{blog_count|default:"ERROR"}}
     <br />number of posts: {{post_count}}
     <br />number of comments: {{comment_count}}

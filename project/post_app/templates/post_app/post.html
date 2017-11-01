@@ -1,22 +1,32 @@
 {% extends "core/base.html" %}
 
 {% block header %}
-<h1> {{ post.title }} from blog {{ post.blog.title }}</h1>
+<h1> Post detailed page<br \><br \>
+    {{ post.title }} from blog {{ post.blog.title }}</h1>
 {% endblock %}
 
 {% block content %}
 
 <h2>
     {{ post.title }}
-    <br \><br \>
+    <br /><br \>
     Comments number: {{ comment_count }} <br \><br \>
     Comments:
 
 </h2>
+
     {% for comment in post.comments.all %}
-    <b>{{ comment.title }}</b><br \>
+    <b>{{ forloop.counter }} : {{ comment.title }}</b><br \>
         {{ comment.data }}<br \> <i> by author {{ comment.author }}</i>
         <br \><br \>
+
     {% endfor %}
+
+    <form action="" method="post">
+        {{ form }}
+        {% csrf_token %}
+        <input type="submit", value="Create">
+    </form>
+
 
 {% endblock %}

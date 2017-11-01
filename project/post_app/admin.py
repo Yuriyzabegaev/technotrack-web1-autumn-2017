@@ -5,15 +5,12 @@ from django.contrib import admin
 from comment_app.models import Comment
 from .models import Post
 
-class CommentInline(admin.TabularInline):
 
+class CommentInline(admin.TabularInline):
     model = Comment
+
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-
-    list_display = 'postId', 'title', 'author', 'blog', 'text',
-    list_editable = 'title', 'text',
-    inlines = CommentInline,
-
-
+    list_display = ('title', 'author', 'blog', 'text')
+    inlines = [CommentInline]
