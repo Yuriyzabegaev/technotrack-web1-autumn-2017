@@ -1,22 +1,28 @@
 {% extends "core/base.html" %}
 
 {% block header %}
-<h1> This is the blog {{ blog.title }} </h1>
+<header class="container">
+<p><h1> blog {{ blog.title }} </h1></p>
 {% if user == blog.author %}
- <a href="{% url 'blog_app:blog_edit' blog.pk %}"> edit </a><br \>
- <a href="{% url 'post_app:post_new' blog.pk %}"> new post </a><br \>
+    <p><a class="btn btn-primary btn-lg" role="button" href="{% url 'blog_app:blog_edit' blog.pk %}">Edit</a>
+        <a class="btn btn-primary btn-lg" role="button" href="{% url 'post_app:post_new' blog.pk %}">New post</a>
+    </p>
 {% endif %}
+</header>
 {% endblock %}
 
 {% block content %}
+<main class="container">
+    <div class="row">
 {% for post in blog.posts.all %}
-    <div>
-        <h2>
+    <div class="col-md-12">
+        <b> <h2>
             <a href="{% url 'post_app:post_detail' post.pk %}"> {{ post.title }}</a><br \>
-        </h2>
+        </h2> </b>
         {{ post.text|linebreaks }}
     </div>
 {% endfor %}
-
+    </div>
+</main>
 {% include 'core/pagination.html' %}
 {% endblock %}

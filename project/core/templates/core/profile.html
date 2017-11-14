@@ -1,14 +1,24 @@
 {% extends "core/base.html" %}
 
 {% block header %}
-<h1> This is profile of user {{ user.username }}. </h1>
-
-pk of {{ user.username }} is: {{ user.pk }} <br /><br />
+<div class="container" role="title">
+    <h2>{{ user.username }}
+    </h2>
+</div>
 {% endblock %}
 
 {% block content %}
+<p class="container">Blogs:</p>
+<main class="container">
+<div class="row">
+
 {% for blog in user.blogs.all %}
-         <a href="{% url "blog_app:blog_detail" pk=blog.pk %}"> {{ blog.title }}</a>
-        </div>
+    <div class="col-md-12">
+        <a href="{% url "blog_app:blog_detail" pk=blog.pk %}">{{ blog.title }}</div>
+    </div>
+
     {% endfor %}
+</div>
+</main>
+
 {% endblock %}

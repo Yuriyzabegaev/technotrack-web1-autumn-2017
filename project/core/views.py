@@ -19,10 +19,6 @@ def base(request):
     return render(request, 'core/base.html', {'pk': 0})
 
 
-def feedback(request):
-    return render(request, 'core/feedback.html')
-
-
 def profile(request, user_pk=None):
     profile = get_object_or_404(User.objects.all(), pk=user_pk)  # !!
     return render(request, 'core/profile.html', {'user': profile})

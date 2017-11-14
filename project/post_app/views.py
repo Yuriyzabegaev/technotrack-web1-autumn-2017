@@ -23,24 +23,32 @@ class PostDetail(CreateView):
     def get_context_data(self, **kwargs):
 
         context = super(PostDetail, self).get_context_data(**kwargs)
-        post = Post.objects.filter(pk=self.kwargs.get('pk'))
-        context['post'] = post
-        context['comment_count'] = Comment.objects.filter(post=post).count()
+        post_obj = Post.objects.filter(pk=self.kwargs.get('pk'))
+
+        context['post'] = self.post_object
+        context['comment_count'] = Comment.objects.filter(post=post_obj).count()
         print context
         return context
 
     def dispatch(self, request, pk=None, *args, **kwargs):
-        self.post = get_object_or_404(Post.objects.all(), id=pk)
+        #self.post = get_object_or_404(Post.objects.filter(id=self.kwargs.get('pk')))
+        #self.post = get_object_or_404(Post.objects.all, id=kwargs.get("pk"))
+        self.post_object = Post.objects.all().get(pk=pk)   # !!
+
         return super(PostDetail, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('post_app:post_detail', kwargs={'pk': self.object.pk})
+        return reverse('post_app:post_detail', kwargs={'pk': self.object.post.pk})
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        form.instance.blog = self.post.blog
-        form.instance.post = self.post
+        form.instance.blog = self.post_object.blog
+        form.instance.post = self.post_object
         return super(PostDetail, self).form_valid(form)
+
+    # def get_queryset(self):
+    #
+    #     return super(PostDetail, self).get_queryset()
 
 
 class PostUpadte(UpdateView):

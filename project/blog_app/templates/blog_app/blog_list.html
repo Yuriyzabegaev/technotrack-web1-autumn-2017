@@ -1,35 +1,35 @@
 {% extends "core/base.html" %}
 
-{% block header %}<h2>
-    List of Blogs<br>
-    <a href="{% url "blog_app:blog_new" %}">  Start new </a>
+{% block header %}
+<header class="container">
+    <p><h2>List of Blogs</h2></p>
+    <p>
+        <a class="btn btn-primary btn-lg" role="button" href="{% url "blog_app:blog_new" %}">Start new</a>
+    </p>
 
-</h2>{% endblock %}
+</header>{% endblock %}
 
 {% block content %}
+<form action="" method="get">
+    {{ searchform }}
+    <input type="submit" value="Search">
+</form>
 
+    <main class="container">
+        <div class="row">
+        {% for blog in object_list %}
+            <div class="col-md-10">
+                <p>
+            <a href="{% url "blog_app:blog_detail" pk=blog.pk %}"> {{ blog.title }}</a> (by {{ blog.author }})
 
-
-    <form action="" method="get">
-        {{ searchform }}
-
-        <input type="submit" value="Search">
-
-    </form>
-
-    <br \>
-    {% for blog in object_list %}
-        <div>
-                <a href="{% url "blog_app:blog_detail" pk=blog.pk %}"> {{ blog.title }}</a> (by {{ blog.author }})
-            </div>
-            <div>
                 <i>{{ blog.description }}</i>
+                </p>
             </div>
+        {% endfor %}
         </div>
-    <br />
-    {% endfor %}
+    </main>
 
+<div class="container">
 {% include 'core/pagination.html' %}
-
-
+</div>
 {% endblock %}

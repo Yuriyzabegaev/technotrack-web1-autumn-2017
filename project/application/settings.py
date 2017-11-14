@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'blog_app.apps.BlogAppConfig',
     'post_app.apps.PostAppConfig',
     'comment_app.apps.CommentAppConfig',
+    # 'widget-tweaks',
 ]
 
 AUTH_USER_MODEL = 'core.User'

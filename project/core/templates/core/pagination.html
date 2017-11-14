@@ -18,20 +18,20 @@
 
       {% for page in paginator.page_range %}
         <li {% if page == page_obj.number %}class="active"{% endif %}>
-          <a href="?page={{ page }}">{{ page }}</a>
+          <a href="?page={{ page }}">{{ page }} </a>
         </li>
       {% endfor %}
 
       {% if page_obj.has_next %}
         <li>
           <a href="?page={{ page_obj.next_page_number }}">
-            <span>Next</span>
+            <span>Next </span>
           </a>
         </li>
       {% else %}
         <li {% if not page_obj.has_next %}class="disabled"{% endif %}>
           <a href="#">
-            <span>Next</span>
+            <span>Next </span>
           </a>
         </li>
       {% endif %}

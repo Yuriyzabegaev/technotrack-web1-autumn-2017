@@ -7,7 +7,6 @@ from application import settings
 
 class Comment(models.Model):
 
-    #comment_id = models.IntegerField(default=0, unique=True)
     title = models.CharField(max_length=255, default='')
     data = models.TextField(default='')
     post = models.ForeignKey('post_app.Post', related_name='comments')
