@@ -22,18 +22,22 @@ class BlogListForm(forms.Form):
     threshold = forms.IntegerField(required=False)
 
 
+class BlogForm(forms.ModelForm):
+
+    class Meta:
+        model = Blog
+        fields = 'title',
+
 class BlogNew(CreateView):
 
     template_name = 'blog_app/new_blog.html'
     model = Blog
     fields = 'title', 'description'
-
+    #
     def get_success_url(self):
-
         return reverse("blog_app:blog_detail", kwargs={'pk' : self.object.pk})
 
     def form_valid(self, form):
-
         form.instance.author = self.request.user
         return super(BlogNew, self).form_valid(form)
 
@@ -77,6 +81,10 @@ class BlogList(ListView):
     def get_context_data(self, **kwargs):
         context = super(BlogList, self).get_context_data(**kwargs)
         context['searchform'] = self.form
+        print (context)
+        for blog in context['object_list']:
+             blog.form = BlogForm(instance=blog);
+
         return context
 
 

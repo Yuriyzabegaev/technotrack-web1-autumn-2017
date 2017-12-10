@@ -1,33 +1,63 @@
 {% extends "core/base.html" %}
-
+{% load widget_tweaks %}
 {% block header %}
 <header class="container">
-    <p><h2>List of Blogs</h2></p>
+    <p><h2>List of Blogs</h2>
     <p>
-        <a class="btn btn-primary btn-lg" role="button" href="{% url "blog_app:blog_new" %}">Start new</a>
+        <a class="btn btn-dark btn-lg blogNewLink" role="button" href="{% url 'blog_app:blog_new' %}">Start new</a>
     </p>
 
 </header>{% endblock %}
 
 {% block content %}
-<form action="" method="get">
-    {{ searchform }}
-    <input type="submit" value="Search">
-</form>
+<div class="container">
 
+{#<form action="{% url 'blog_app:blog_list' %}" method="post" class="form-control">#}
+{#    {% csrf_token %}#}
+{#    {{ searchform|add_class:"id_{% searchform.current_fields %}"}}#}
+{#    <p><input type="submit" value="Update" >#}
+{#</form>#}
+
+  <form method="get">
+    {% csrf_token %}
+
+    {% for hidden in searchform.hidden_fields %}
+      {{ hidden }}
+    {% endfor %}
+
+    {% for field in searchform.visible_fields %}
+      <div class="form-group">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field|add_class:'form-control' }}
+        {% for error in field.errors %}
+          <span class="help-block">{{ error }}</span>
+        {% endfor %}
+      </div>
+    {% endfor %}
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-success">
+        <span class="glyphicon glyphicon-ok"></span> Save
+      </button>
+      <a href="{% url 'home' %}" class="btn btn-default">Cancel</a>
+    </div>
+  </form>
+
+
+</div>
     <main class="container">
         <div class="row">
         {% for blog in object_list %}
             <div class="col-md-10">
                 <p>
-            <a href="{% url "blog_app:blog_detail" pk=blog.pk %}"> {{ blog.title }}</a> (by {{ blog.author }})
-
+            <a href="{% url 'blog_app:blog_detail' pk=blog.pk %}"> {{ blog.title }}</a> (by {{ blog.author }})
                 <i>{{ blog.description }}</i>
                 </p>
             </div>
         {% endfor %}
         </div>
     </main>
+
 
 <div class="container">
 {% include 'core/pagination.html' %}

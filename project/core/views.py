@@ -3,8 +3,10 @@ from __future__ import unicode_literals
 
 from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib.auth.forms import UserCreationForm as BaseUserCreationForm
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
+from django.views import View
 from django.views.generic import TemplateView, ListView, CreateView, FormView
 from django.views.generic import DetailView
 
@@ -12,7 +14,6 @@ from blog_app.models import Blog
 from comment_app.models import Comment
 from core.models import User
 from post_app.models import Post
-
 
 
 def base(request):

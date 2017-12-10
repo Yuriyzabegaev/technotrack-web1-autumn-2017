@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-
+from django.conf import settings
+from django.conf.urls.static import static
 from core.views import *
 
 urlpatterns = [
@@ -24,4 +25,4 @@ urlpatterns = [
     url(r'^posts/', include('post_app.urls', namespace="post_app")),
     url(r'^$', HomePageView.as_view(), name='home'),
     url(r'^', include('core.urls', namespace="core")),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

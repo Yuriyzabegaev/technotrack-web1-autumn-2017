@@ -2,23 +2,19 @@
 
 {% block header %}
 <div class="container" role="title">
-    <h2>{{ user.username }}
-    </h2>
+    <h2>{{ user.username }}</h2>
 </div>
 {% endblock %}
 
 {% block content %}
 <p class="container">Blogs:</p>
+
 <main class="container">
-<div class="row">
-
-{% for blog in user.blogs.all %}
-    <div class="col-md-12">
-        <a href="{% url "blog_app:blog_detail" pk=blog.pk %}">{{ blog.title }}</div>
+    <div class="row">
+        {% for blog in user.blogs.all %}
+            <a class="col-md-12" href="{% url 'blog_app:blog_detail' pk=blog.pk %}">{{ blog.title }}</a>
+        {% endfor %}
     </div>
-
-    {% endfor %}
-</div>
 </main>
 
 {% endblock %}

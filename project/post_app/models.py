@@ -16,6 +16,12 @@ class Post(models.Model):
     title = models.CharField(max_length=255)
     text = models.TextField(default='')
     is_deleted = models.BooleanField(default=False)
+    likecount = models.IntegerField(default=0)
 
     def __unicode__(self):
         return u'{}, (author:{} blog:{})'.format(self.title, self.author, self.blog)
+
+class Like(models.Model):
+
+    post_object = models.ForeignKey(Post, related_name='likes')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='likes')
