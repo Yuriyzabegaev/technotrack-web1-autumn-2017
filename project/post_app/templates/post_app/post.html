@@ -12,16 +12,15 @@
 
 
     <main class="container">
-        <p>
-            <b><h2>{{ post.text }}</h2></b>
-        </p>
-    лайков: <div class="likecount">{{ post.likecount }}</div>
+        <p><b><h2>{{ post.text }}</h2></b></p>
+        лайков: <div class="likecount" data-likes-url="{% url 'post_app:like' pk=post.pk %}" data-post-id="{{ post.pk }}"> {{ post.likecount }}</div>
+    </main>
 
-<aside class="container">
+
+
+<div class="container">
     Comments number: {{ comment_count }} <br><br>
     Comments:
-
-
 
     {% for comment in post.comments.all %}
     <b>{{ forloop.counter }} : {{ comment.title }}</b><br>
@@ -43,7 +42,7 @@
     {% endbuttons %}
     </form>
     {% endif %}
-</aside>
+</div>
 
 
 {% endblock %}

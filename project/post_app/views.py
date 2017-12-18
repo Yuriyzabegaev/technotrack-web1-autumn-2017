@@ -15,10 +15,6 @@ from comment_app.models import Comment
 from post_app.models import Post, Like
 
 
-#def post(request, blog_pk=None, post_pk=None):
-#    return render(request, 'post_app/post.html', {'blog_pk' : blog_pk, 'post_pk' : post_pk})
-
-
 class PostDetail(CreateView):
 
     def post(self, request, *args, **kwargs):
@@ -117,8 +113,15 @@ class PostLikeAjaxView(View):
     def get(self, request):
         return HttpResponse(self.post_object.likecount)
 
-    # def post(self, request):
-    #     if not self.post_object.likes.filter()
-    #     like = Like.objects.create(self.post_object, self.request.user)
-    #
-    #     return HttpResponse(self.post_object.likecount)
+    def post(self, request):
+        thisLike = self.post_object.likes.filter(user=self.request.user)
+        if not thisLike:
+            Like.objects.create(post_object=self.post_object, user=self.request.user)
+            self.post_object.likecount += 1
+            self.post_object.save()
+        else:
+            thisLike.delete()
+            self.post_object.likecount -= 1
+            self.post_object.save()
+
+        return HttpResponse(self.post_object.likecount)

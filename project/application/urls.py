@@ -26,3 +26,9 @@ urlpatterns = [
     url(r'^$', HomePageView.as_view(), name='home'),
     url(r'^', include('core.urls', namespace="core")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ]
